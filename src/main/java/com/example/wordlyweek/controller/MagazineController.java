@@ -1,0 +1,47 @@
+package com.example.wordlyweek.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.wordlyweek.service.MagazineJpaService;
+import com.example.wordlyweek.model.Magazine;
+import com.example.wordlyweek.model.Writer;
+
+import java.util.*;
+
+@RestController
+
+public class MagazineController {
+    @Autowired
+    public MagazineJpaService magazineJpaService;
+
+    @GetMapping("/magazines")
+    public ArrayList<Magazine> getMagazines() {
+        return magazineJpaService.getMagazines();
+    }
+
+    @GetMapping("/magazines/{magazineId}")
+    public Magazine getMagazineById(@PathVariable("magazineId") int magazineId) {
+        return magazineJpaService.getMagazineById(magazineId);
+    }
+
+    @PostMapping("/magazines")
+    public Magazine addMagazine(@RequestBody Magazine magazine) {
+        return magazineJpaService.addMagazine(magazine);
+    }
+
+    @PutMapping("/magazines/{magazineId}")
+    public Magazine updateMagazine(@PathVariable("magazineId") int magazineId, @RequestBody Magazine magazine) {
+        return magazineJpaService.updateMagazine(magazineId, magazine);
+    }
+
+    @DeleteMapping("/magazines/{magazineId}")
+    public void deleteMagazine(@PathVariable("magazieId") int magazineId) {
+        magazineJpaService.deleteMagazine(magazineId);
+    }
+
+    @GetMapping("/magazines/{magazineId}/writers")
+    public List<Writer> getMagazineWriter(@PathVariable("magazineId") int magazineId) {
+        return magazineJpaService.getMagazineWriter(magazineId);
+    }
+}
